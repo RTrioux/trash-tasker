@@ -1,0 +1,8 @@
+[Unit]
+Description=Run Trash Tasker Every Sunday
+Wants=trash-tasker.timer
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/trash-tasker/trash-tasker.py
