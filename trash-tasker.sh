@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TRASH_TASKER_ENV="RELEASE"
+export TRASH_TASKER_ENV="RELEASE"
 
 # Get the directory of the current script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
