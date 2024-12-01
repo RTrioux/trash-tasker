@@ -1,8 +1,8 @@
 [Unit]
-Description=Run trash-tasker.service every Sunday at 18:00
+Description=Run trash-tasker.service every Sunday at 17:00 UTC
 
 [Timer]
-OnCalendar=Sun 18:00
+OnCalendar=Sun 17:00
 Persistent=true
 
 [Install]

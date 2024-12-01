@@ -5,4 +5,4 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/trash-tasker/trash-tasker.py
+ExecStart=/opt/trash-tasker/trash-tasker.sh
