@@ -1,3 +1,5 @@
 *.conf
 directory.json
 schedule.csv
+profile.json
+*.log

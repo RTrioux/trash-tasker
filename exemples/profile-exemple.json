@@ -1,0 +1,6 @@
+{
+    "no_sms": false,
+    "redirect_sms": false,
+    "cc_sms": false,
+    "number_debug": "+33600000000"
+}

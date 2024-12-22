@@ -5,6 +5,9 @@ export TRASH_TASKER_ENV="RELEASE"
 # Get the directory of the current script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Navigate to the script directory
+pushd "$SCRIPT_DIR" > /dev/null
+
 # Path to the virtual environment
 VENV_PATH="$SCRIPT_DIR/venv"
 
@@ -28,8 +31,11 @@ if [ ! -f "$PYTHON_SCRIPT" ]; then
 fi
 
 # Start the Python script
-python "$PYTHON_SCRIPT"
+python "$PYTHON_SCRIPT" send next
 
 # Deactivate the virtual environment after the script ends
 deactivate
 
+
+# Return to the original directory
+popd > /dev/null
