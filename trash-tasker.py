@@ -81,13 +81,13 @@ def send_sms(number: str, message: str):
             time.sleep(retry_time)
 
 
-def check_schedule_directory(schedule_path, repository_path):
+def check_schedule_directory(schedule_path, directory_path):
     df = pd.read_csv(schedule_path, sep=",", na_values="")
     df = df.where(pd.notnull(df), None)  # Replace NaN with None
 
     status_ok = True
 
-    with open(repository_path, "r") as file:
+    with open(directory_path, "r") as file:
         rep = json.load(file)
 
         for key in df["name"]:
@@ -152,6 +152,29 @@ def show_schedule():
     console.print(table)
 
 
+def show_directory():
+
+    from rich.console import Console
+    from rich.table import Table
+
+    console = Console()
+
+    with open("directory.json", "r") as file:
+        directory = json.load(file)
+
+    table = Table(title="User Directory")
+    table.add_column("Key", style="cyan", no_wrap=True)
+    table.add_column("Name(s)", style="magenta")
+    table.add_column("Phone(s)", style="green")
+
+    for key, info in directory.items():
+        names = ", ".join(info["name"])
+        phones = ", ".join(info["phone"])
+        table.add_row(key, names, phones)
+
+    console.print(table)
+
+
 def send_next():
     if check_schedule_directory("schedule.csv", "directory.json") is False:
         logger.error("Some errors were found in the schedule or directory file")
@@ -186,14 +209,17 @@ if __name__ == "__main__":
 
     # Subparser for 'show'
     show_parser = subparsers.add_parser("show", help="Show information.")
-    show_parser.add_argument("action", choices=["schedule"], help="Action to perform with show.")
+    show_parser.add_argument("action", choices=["schedule", "directory"], help="Action to perform with show.")
 
     args = parser.parse_args()
 
     # Handle the commands
     if args.command == "send" and args.action == "next":
         send_next()
-    elif args.command == "show" and args.action == "schedule":
-        show_schedule()
+    elif args.command == "show":
+        if args.action == "schedule":
+            show_schedule()
+        if args.action == "directory":
+            show_directory()
     else:
         parser.print_help()
