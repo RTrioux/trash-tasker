@@ -211,6 +211,9 @@ if __name__ == "__main__":
     show_parser = subparsers.add_parser("show", help="Show information.")
     show_parser.add_argument("action", choices=["schedule", "directory"], help="Action to perform with show.")
 
+    # Subparser for 'check'
+    check_parser = subparsers.add_parser("check", help="Check the schedule and directory")
+
     args = parser.parse_args()
 
     # Handle the commands
@@ -221,5 +224,10 @@ if __name__ == "__main__":
             show_schedule()
         if args.action == "directory":
             show_directory()
+    elif args.command == "check":
+        if check_schedule_directory("schedule.csv", "directory.json"):
+            logger.info("Schedule and directory are valid.")
+        else:
+            logger.error("Errors found in the schedule or directory file.")
     else:
         parser.print_help()
